@@ -20,9 +20,10 @@ import org.eclipse.che.ide.api.action.IdeActions;
 import org.eclipse.che.ide.api.keybinding.KeyBindingAgent;
 import org.eclipse.che.ide.api.parts.PerspectiveManager;
 import org.eclipse.che.ide.menu.ContextMenu;
-import org.eclipse.che.ide.part.widgets.editortab.EditorTab;
+import org.eclipse.che.ide.api.parts.EditorTab;
 
 import static org.eclipse.che.ide.part.editor.actions.EditorAbstractAction.CURRENT_FILE_PROP;
+import static org.eclipse.che.ide.part.editor.actions.EditorAbstractAction.CURRENT_TAB_PROP;
 import static org.eclipse.che.ide.part.editor.actions.PinEditorTabAction.PROP_PIN;
 
 /**
@@ -59,5 +60,6 @@ public class EditorTabContextMenu extends ContextMenu {
         //pass into action file property and editor tab pin state
         presentationFactory.getPresentation(action).putClientProperty(CURRENT_FILE_PROP, editorTab.getFile());
         presentationFactory.getPresentation(action).putClientProperty(PROP_PIN, editorTab.isPinned());
+        presentationFactory.getPresentation(action).putClientProperty(CURRENT_TAB_PROP, editorTab);
     }
 }

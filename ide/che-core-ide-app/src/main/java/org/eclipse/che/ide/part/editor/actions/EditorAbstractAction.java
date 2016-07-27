@@ -16,6 +16,7 @@ import org.eclipse.che.ide.api.action.AbstractPerspectiveAction;
 import org.eclipse.che.ide.api.action.ActionEvent;
 import org.eclipse.che.ide.api.editor.EditorAgent;
 import org.eclipse.che.ide.api.resources.VirtualFile;
+import org.eclipse.che.ide.api.parts.EditorTab;
 import org.vectomatic.dom.svg.ui.SVGResource;
 
 import javax.validation.constraints.NotNull;
@@ -31,6 +32,7 @@ import static org.eclipse.che.ide.workspace.perspectives.project.ProjectPerspect
 public abstract class EditorAbstractAction extends AbstractPerspectiveAction {
 
     public static final String CURRENT_FILE_PROP = "source";
+    public static final String CURRENT_TAB_PROP = "tab";
 
     protected EditorAgent          editorAgent;
     protected EventBus             eventBus;
@@ -68,5 +70,15 @@ public abstract class EditorAbstractAction extends AbstractPerspectiveAction {
         }
 
         throw new IllegalStateException("File doesn't provided");
+    }
+
+    protected EditorTab getEditorTab(ActionEvent e) {
+        Object o = e.getPresentation().getClientProperty(CURRENT_TAB_PROP);
+
+        if (o instanceof EditorTab) {
+            return (EditorTab)o;
+        }
+
+        throw new IllegalStateException("Tab doesn't provided");
     }
 }

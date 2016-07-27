@@ -10,6 +10,10 @@
  *******************************************************************************/
 package org.eclipse.che.ide.api.parts;
 
+import org.eclipse.che.ide.api.editor.EditorPartPresenter;
+
+import javax.validation.constraints.NotNull;
+
 /**
  * Part Stack is tabbed layout element, containing Parts. EditorPartStack is shared
  * across the Perspectives and allows to display EditorParts
@@ -17,5 +21,9 @@ package org.eclipse.che.ide.api.parts;
  * @author <a href="mailto:nzamosenchuk@exoplatform.com">Nikolay Zamosenchuk</a>
  */
 public interface EditorPartStack extends PartStack {
+
+    EditorTab getTabById(@NotNull String tabId);
+
+    EditorPartPresenter getPartByTabId(@NotNull String tabId);
 
 }

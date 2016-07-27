@@ -73,6 +73,8 @@ import org.eclipse.che.ide.part.editor.actions.CloseAllExceptPinnedAction;
 import org.eclipse.che.ide.part.editor.actions.CloseOtherAction;
 import org.eclipse.che.ide.part.editor.actions.PinEditorTabAction;
 import org.eclipse.che.ide.part.editor.actions.ReopenClosedFileAction;
+import org.eclipse.che.ide.part.editor.actions.SplitHorizontallyAction;
+import org.eclipse.che.ide.part.editor.actions.SplitVerticallyAction;
 import org.eclipse.che.ide.part.editor.recent.OpenRecentFilesAction;
 import org.eclipse.che.ide.part.explorer.project.TreeResourceRevealer;
 import org.eclipse.che.ide.resources.action.CopyResourceAction;
@@ -157,6 +159,12 @@ public class StandardComponentInitializer {
 
     @Inject
     private CollapseAllAction collapseAllAction;
+
+    @Inject
+    private SplitVerticallyAction splitVerticallyAction;
+
+    @Inject
+    private SplitHorizontallyAction splitHorizontallyAction;
 
     @Inject
     private CloseAction closeAction;
@@ -591,6 +599,11 @@ public class StandardComponentInitializer {
         actionManager.registerAction("reopenClosedEditorTab", reopenClosedFileAction);
         editorTabContextMenu.add(pinEditorTabAction);
         actionManager.registerAction("pinEditorTab", pinEditorTabAction);
+        editorTabContextMenu.addSeparator();
+        actionManager.registerAction("splitVertically", splitVerticallyAction);
+        editorTabContextMenu.add(splitVerticallyAction);
+        actionManager.registerAction("splitHorizontally", splitHorizontallyAction);
+        editorTabContextMenu.add(splitHorizontallyAction);
 
         final DefaultActionGroup loaderToolbarGroup = new DefaultActionGroup("loader", false, actionManager);
         actionManager.registerAction("loader", loaderToolbarGroup);

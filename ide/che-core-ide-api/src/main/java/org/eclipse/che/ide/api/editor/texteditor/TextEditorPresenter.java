@@ -86,6 +86,7 @@ import org.eclipse.che.ide.api.resources.VirtualFile;
 import org.eclipse.che.ide.api.selection.Selection;
 import org.eclipse.che.ide.resource.Path;
 import org.eclipse.che.ide.ui.loaders.request.LoaderFactory;
+import org.eclipse.che.ide.util.loging.Log;
 import org.vectomatic.dom.svg.ui.SVGResource;
 
 import javax.validation.constraints.NotNull;
@@ -435,6 +436,7 @@ public class TextEditorPresenter<T extends EditorWidget> extends AbstractEditorP
 
     @Override
     public void close(final boolean save) {
+        Log.error(getClass(), "=== close text editor");
         this.documentStorage.documentClosed(this.document);
         final Reconciler reconciler = configuration.getReconciler();
         if (reconciler != null) {
@@ -534,7 +536,7 @@ public class TextEditorPresenter<T extends EditorWidget> extends AbstractEditorP
         }
 
         if (input.getFile().equals(event.getFile())) {
-            close(false);
+//            close(false);
         }
     }
 

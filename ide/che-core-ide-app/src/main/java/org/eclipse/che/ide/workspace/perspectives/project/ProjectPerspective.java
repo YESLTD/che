@@ -19,6 +19,7 @@ import org.eclipse.che.ide.api.notification.NotificationManager;
 import org.eclipse.che.ide.api.parts.EditorPartStack;
 import org.eclipse.che.ide.api.parts.PartStack;
 import org.eclipse.che.ide.api.parts.ProjectExplorerPart;
+import org.eclipse.che.ide.part.editor.multipart.EditorMultiPartStackPresenter;
 import org.eclipse.che.ide.workspace.PartStackPresenterFactory;
 import org.eclipse.che.ide.workspace.PartStackViewFactory;
 import org.eclipse.che.ide.workspace.WorkBenchControllerFactory;
@@ -29,6 +30,7 @@ import javax.validation.constraints.NotNull;
 
 import static org.eclipse.che.ide.api.parts.PartStackType.EDITING;
 import static org.eclipse.che.ide.api.parts.PartStackType.INFORMATION;
+import static org.eclipse.che.ide.api.parts.PartStackType.MULTI_EDITING;
 import static org.eclipse.che.ide.api.parts.PartStackType.NAVIGATION;
 import static org.eclipse.che.ide.api.parts.PartStackType.TOOLING;
 
@@ -51,6 +53,7 @@ public class ProjectPerspective extends AbstractPerspective {
     @Inject
     public ProjectPerspective(PerspectiveViewImpl view,
                               EditorPartStack editorPartStackPresenter,
+                              EditorMultiPartStackPresenter editorMultiPartStackPresenter,
                               PartStackPresenterFactory stackPresenterFactory,
                               PartStackViewFactory partViewFactory,
                               WorkBenchControllerFactory controllerFactory,
@@ -62,6 +65,7 @@ public class ProjectPerspective extends AbstractPerspective {
         notificationManager.addRule(PROJECT_PERSPECTIVE_ID);
 
         partStacks.put(EDITING, editorPartStackPresenter);
+        partStacks.put(MULTI_EDITING, editorMultiPartStackPresenter);
 
         addPart(notificationManager, INFORMATION);
         addPart(projectExplorerPart, NAVIGATION);
@@ -71,7 +75,7 @@ public class ProjectPerspective extends AbstractPerspective {
     @Override
     public void go(@NotNull AcceptsOneWidget container) {
         PartStack navigatorPanel = getPartStack(NAVIGATION);
-        PartStack editorPanel = getPartStack(EDITING);
+        PartStack editorPanel = getPartStack(MULTI_EDITING);
         PartStack toolPanel = getPartStack(TOOLING);
         PartStack infoPanel = getPartStack(INFORMATION);
 

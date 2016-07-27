@@ -23,7 +23,7 @@ import org.eclipse.che.ide.api.filetypes.FileTypeRegistry;
 import org.eclipse.che.ide.api.parts.PartStackUIResources;
 import org.eclipse.che.ide.api.resources.VirtualFile;
 import org.eclipse.che.ide.part.editor.EditorTabContextMenuFactory;
-import org.eclipse.che.ide.part.widgets.editortab.EditorTab.ActionDelegate;
+import org.eclipse.che.ide.api.parts.EditorTab.ActionDelegate;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

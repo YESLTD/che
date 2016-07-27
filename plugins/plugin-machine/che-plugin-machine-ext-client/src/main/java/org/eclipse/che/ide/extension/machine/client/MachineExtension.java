@@ -101,7 +101,7 @@ public class MachineExtension {
                 /* Do not show terminal on factories by default */
                 if (appContext.getFactory() == null) {
                     consolesPanelPresenter.newTerminal();
-                    workspaceAgent.openPart(consolesContainerPresenter, PartStackType.INFORMATION);
+//                    workspaceAgent.openPart(consolesContainerPresenter, PartStackType.INFORMATION);
                 }
 
                 workspaceAgent.setActivePart(projectExplorerPresenter);
@@ -121,13 +121,13 @@ public class MachineExtension {
 
                 /* Add Consoles to Operation perspective */
                 perspectiveManager.setPerspectiveId(OperationsPerspective.OPERATIONS_PERSPECTIVE_ID);
-                workspaceAgent.openPart(consolesContainerPresenter, PartStackType.INFORMATION);
+//                workspaceAgent.openPart(consolesContainerPresenter, PartStackType.INFORMATION);
 
                 /* Add Consoles to Project perspective */
                 perspectiveManager.setPerspectiveId(PROJECT_PERSPECTIVE_ID);
-                workspaceAgent.openPart(consolesContainerPresenter, PartStackType.INFORMATION);
+//                workspaceAgent.openPart(consolesContainerPresenter, PartStackType.INFORMATION);
                 if (appContext.getFactory() == null) {
-                     workspaceAgent.setActivePart(consolesContainerPresenter);
+//                     workspaceAgent.setActivePart(consolesContainerPresenter);
                 }
             }
         });

@@ -23,6 +23,7 @@ import org.eclipse.che.ide.api.parts.EditorPartStack;
 import org.eclipse.che.ide.api.parts.PartStackView;
 import org.eclipse.che.ide.api.parts.ProjectExplorerPart;
 import org.eclipse.che.ide.part.PartStackPresenter;
+import org.eclipse.che.ide.part.editor.multipart.EditorMultiPartStackPresenter;
 import org.eclipse.che.ide.workspace.PartStackPresenterFactory;
 import org.eclipse.che.ide.workspace.PartStackViewFactory;
 import org.eclipse.che.ide.workspace.WorkBenchControllerFactory;
@@ -46,21 +47,23 @@ public class ProjectPerspectiveTest {
 
     //constructor mocks
     @Mock
-    private PerspectiveViewImpl        view;
+    private PerspectiveViewImpl           view;
     @Mock
-    private EditorPartStack            editorPartStackPresenter;
+    private EditorPartStack               editorPartStackPresenter;
     @Mock
-    private PartStackViewFactory       partViewFactory;
+    private PartStackViewFactory          partViewFactory;
     @Mock
-    private WorkBenchControllerFactory controllerFactory;
+    private WorkBenchControllerFactory    controllerFactory;
     @Mock
-    private PartStackPresenterFactory  stackPresenterFactory;
+    private PartStackPresenterFactory     stackPresenterFactory;
     @Mock
-    private ProjectExplorerPart        projectExplorerPart;
+    private ProjectExplorerPart           projectExplorerPart;
     @Mock
-    private NotificationManager        notificationManager;
+    private NotificationManager           notificationManager;
     @Mock
-    private EventBus                   eventBus;
+    private EventBus                      eventBus;
+    @Mock
+    private EditorMultiPartStackPresenter editorMultiPartStackPresenter;
 
     //additional mocks
     @Mock
@@ -107,6 +110,7 @@ public class ProjectPerspectiveTest {
 
         perspective = new ProjectPerspective(view,
                                              editorPartStackPresenter,
+                                             editorMultiPartStackPresenter,
                                              stackPresenterFactory,
                                              partViewFactory,
                                              controllerFactory,
@@ -121,6 +125,7 @@ public class ProjectPerspectiveTest {
 
         perspective = new ProjectPerspective(view,
                                              editorPartStackPresenter,
+                                             editorMultiPartStackPresenter,
                                              stackPresenterFactory,
                                              partViewFactory,
                                              controllerFactory,

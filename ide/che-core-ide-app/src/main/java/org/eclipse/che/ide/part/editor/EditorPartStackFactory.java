@@ -10,20 +10,12 @@
  *******************************************************************************/
 package org.eclipse.che.ide.part.editor;
 
-import org.eclipse.che.ide.api.parts.EditorTab;
+import org.eclipse.che.ide.api.parts.EditorPartStack;
 
 /**
- * Editor tab context menu factory.
- *
- * @author Vlad Zhukovskiy
+ * @author Roman Nikitenko
  */
-public interface EditorTabContextMenuFactory {
-    /**
-     * Creates new context menu for editor tab.
-     *
-     * @param editorTab
-     *         editor tab item
-     * @return new context menu
-     */
-    EditorTabContextMenu newContextMenu(EditorTab editorTab);
+public interface EditorPartStackFactory {
+
+    EditorPartStack create();
 }

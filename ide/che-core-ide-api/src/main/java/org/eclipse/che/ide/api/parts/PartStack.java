@@ -12,6 +12,7 @@ package org.eclipse.che.ide.api.parts;
 
 import org.eclipse.che.ide.api.constraints.Constraints;
 import org.eclipse.che.ide.api.mvp.Presenter;
+import org.eclipse.che.ide.api.parts.PartStackView.TabItem;
 
 import javax.validation.constraints.NotNull;
 
@@ -58,6 +59,8 @@ public interface PartStack extends Presenter {
      * @return
      */
     PartPresenter getActivePart();
+
+    public TabItem getTabByPart(@NotNull PartPresenter part);
 
     /**
      * Activate given part (force show it on the screen). If part wasn't previously added

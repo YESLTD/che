@@ -8,7 +8,7 @@
  * Contributors:
  *   Codenvy, S.A. - initial API and implementation
  *******************************************************************************/
-package org.eclipse.che.ide.part.widgets.editortab;
+package org.eclipse.che.ide.api.parts;
 
 import com.google.gwt.event.dom.client.DoubleClickHandler;
 
@@ -28,6 +28,8 @@ public interface EditorTab extends View<EditorTab.ActionDelegate>, TabItem, Doub
     void setErrorMark(boolean isVisible);
 
     void setWarningMark(boolean isVisible);
+
+    String getId();
 
     /**
      * Return virtual file associated with editor tab.

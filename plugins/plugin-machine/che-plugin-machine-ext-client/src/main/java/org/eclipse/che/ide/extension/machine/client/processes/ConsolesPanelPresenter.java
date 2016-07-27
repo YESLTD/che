@@ -181,12 +181,12 @@ public class ConsolesPanelPresenter implements ConsolesPanelView.ActionDelegate,
 
     @Override
     public void onMachineCreating(MachineStateEvent event) {
-        workspaceAgent.setActivePart(parent);
+//        workspaceAgent.setActivePart(parent);
     }
 
     @Override
     public void onMachineRunning(MachineStateEvent event) {
-        workspaceAgent.setActivePart(parent);
+//        workspaceAgent.setActivePart(parent);
 
         machineService.getMachine(event.getMachineId()).then(new Operation<MachineDto>() {
             @Override
@@ -228,7 +228,7 @@ public class ConsolesPanelPresenter implements ConsolesPanelView.ActionDelegate,
 
                 view.selectNode(devMachineTreeNode);
 
-                workspaceAgent.setActivePart(parent);
+//                workspaceAgent.setActivePart(parent);
             }
         });
     }
@@ -336,7 +336,7 @@ public class ConsolesPanelPresenter implements ConsolesPanelView.ActionDelegate,
         updateCommandOutput(commandId, outputConsole);
 
         resfreshStopButtonState(commandId);
-        workspaceAgent.setActivePart(parent);
+//        workspaceAgent.setActivePart(parent);
     }
 
     protected void updateCommandOutput(@NotNull final String command, @NotNull OutputConsole outputConsole) {
@@ -358,7 +358,7 @@ public class ConsolesPanelPresenter implements ConsolesPanelView.ActionDelegate,
      * Opens new terminal for the selected machine.
      */
     public void newTerminal() {
-        workspaceAgent.setActivePart(parent);
+//        workspaceAgent.setActivePart(parent);
 
         if (selectedTreeNode == null) {
             if (appContext.getDevMachine() != null) {

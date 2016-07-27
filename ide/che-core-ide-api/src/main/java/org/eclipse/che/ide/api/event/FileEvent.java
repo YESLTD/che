@@ -24,6 +24,7 @@ public class FileEvent extends GwtEvent<FileEventHandler> {
     public static Type<FileEventHandler> TYPE = new Type<>();
     private VirtualFile   file;
     private FileOperation fileOperation;
+    private String tabId;
 
     /**
      * Creates new {@link FileEvent}.
@@ -36,6 +37,11 @@ public class FileEvent extends GwtEvent<FileEventHandler> {
     public FileEvent(VirtualFile file, FileOperation fileOperation) {
         this.file = file;
         this.fileOperation = fileOperation;
+    }
+
+    public FileEvent(String tabId, VirtualFile file, FileOperation fileOperation) {
+        this(file, fileOperation);
+        this.tabId = tabId;
     }
 
     /** {@inheritDoc} */
@@ -52,6 +58,10 @@ public class FileEvent extends GwtEvent<FileEventHandler> {
     /** @return the type of operation performed with file */
     public FileOperation getOperationType() {
         return fileOperation;
+    }
+
+    public String getTabId() {
+        return tabId;
     }
 
     @Override

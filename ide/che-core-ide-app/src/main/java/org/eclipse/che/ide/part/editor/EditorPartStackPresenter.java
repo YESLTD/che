@@ -13,7 +13,6 @@ package org.eclipse.che.ide.part.editor;
 import com.google.common.base.Predicate;
 import com.google.gwt.core.client.Scheduler;
 import com.google.inject.Inject;
-import com.google.inject.Singleton;
 import com.google.web.bindery.event.shared.EventBus;
 
 import org.eclipse.che.commons.annotation.Nullable;
@@ -35,10 +34,11 @@ import org.eclipse.che.ide.part.editor.event.CloseNonPinnedEditorsEvent.CloseNon
 import org.eclipse.che.ide.part.editor.event.PinEditorTabEvent;
 import org.eclipse.che.ide.part.editor.event.PinEditorTabEvent.PinEditorTabEventHandler;
 import org.eclipse.che.ide.part.widgets.TabItemFactory;
-import org.eclipse.che.ide.part.widgets.editortab.EditorTab;
+import org.eclipse.che.ide.api.parts.EditorTab;
 import org.eclipse.che.ide.part.widgets.listtab.ListButton;
 import org.eclipse.che.ide.part.widgets.listtab.ListItem;
 import org.eclipse.che.ide.part.widgets.listtab.ListItemWidget;
+import org.eclipse.che.ide.util.loging.Log;
 
 import javax.validation.constraints.NotNull;
 import java.util.HashMap;
@@ -60,7 +60,6 @@ import static org.eclipse.che.ide.api.event.FileEvent.FileOperation.CLOSE;
  * @author Dmitry Shnurenko
  * @author Vlad Zhukovskyi
  */
-@Singleton
 public class EditorPartStackPresenter extends PartStackPresenter implements EditorPartStack,
                                                                             EditorTab.ActionDelegate,
                                                                             ListButton.ActionDelegate,
@@ -74,8 +73,6 @@ public class EditorPartStackPresenter extends PartStackPresenter implements Edit
 
     //this list need to save order of added parts
     private final LinkedList<PartPresenter> partsOrder;
-
-    private PartPresenter activePart;
 
     @Inject
     public EditorPartStackPresenter(EditorPartStackView view,
@@ -203,6 +200,17 @@ public class EditorPartStackPresenter extends PartStackPresenter implements Edit
         super.removePart(part);
         partsOrder.remove(part);
         activePart = partsOrder.isEmpty() ? null : partsOrder.getLast();
+
+        if (activePart != null) {
+            onRequestFocus();
+        }
+    }
+
+    @Override
+    public void openPreviousActivePart() {
+        if (activePart != null) {
+            view.selectTab(activePart);
+        }
     }
 
     /** {@inheritDoc} */
@@ -212,7 +220,7 @@ public class EditorPartStackPresenter extends PartStackPresenter implements Edit
         listButton.removeListItem(listItem);
         items.remove(listItem);
 
-        eventBus.fireEvent(new FileEvent(((EditorTab) tab).getFile(), CLOSE));
+        eventBus.fireEvent(new FileEvent(((EditorTab) tab).getId(), ((EditorTab) tab).getFile(), CLOSE));
     }
 
     /** {@inheritDoc} */
@@ -248,5 +256,25 @@ public class EditorPartStackPresenter extends PartStackPresenter implements Edit
                 }
             });
         }
+    }
+
+    @Override
+    public EditorTab getTabById(@NotNull String tabId) {
+        for (TabItem tab: parts.keySet()) {
+            if (tab instanceof EditorTab && ((EditorTab)tab).getId().equals(tabId)) {
+                return (EditorTab)tab;
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public EditorPartPresenter getPartByTabId(@NotNull String tabId) {
+        for (TabItem tab: parts.keySet()) {
+            if (tab instanceof EditorTab && ((EditorTab)tab).getId().equals(tabId)) {
+                return (EditorPartPresenter)parts.get(tab);
+            }
+        }
+        return null;
     }
 }

@@ -22,6 +22,7 @@ import org.eclipse.che.ide.api.parts.PartStack;
 import org.eclipse.che.ide.api.parts.PartStackType;
 import org.eclipse.che.ide.api.parts.PartStackView;
 import org.eclipse.che.ide.api.parts.Perspective;
+import org.eclipse.che.ide.util.loging.Log;
 import org.eclipse.che.ide.workspace.PartStackPresenterFactory;
 import org.eclipse.che.ide.workspace.PartStackViewFactory;
 import org.eclipse.che.ide.workspace.WorkBenchControllerFactory;
@@ -132,6 +133,7 @@ public abstract class AbstractPerspective implements Presenter, Perspective, Act
     /** {@inheritDoc} */
     @Override
     public void removePart(@NotNull PartPresenter part) {
+        Log.error(getClass(), "=== remove part");
         PartStack destPartStack = findPartStackByPart(part);
         if (destPartStack != null) {
             destPartStack.removePart(part);

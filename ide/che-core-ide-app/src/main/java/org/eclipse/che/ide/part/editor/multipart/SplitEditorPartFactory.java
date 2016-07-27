@@ -8,22 +8,18 @@
  * Contributors:
  *   Codenvy, S.A. - initial API and implementation
  *******************************************************************************/
-package org.eclipse.che.ide.part.editor;
+package org.eclipse.che.ide.part.editor.multipart;
 
-import org.eclipse.che.ide.api.parts.EditorTab;
+import com.google.gwt.user.client.ui.IsWidget;
+import com.google.gwt.user.client.ui.SplitLayoutPanel;
+
+import org.eclipse.che.ide.api.constraints.Direction;
 
 /**
- * Editor tab context menu factory.
- *
- * @author Vlad Zhukovskiy
+ * @author Roman Nikitenko
  */
-public interface EditorTabContextMenuFactory {
-    /**
-     * Creates new context menu for editor tab.
-     *
-     * @param editorTab
-     *         editor tab item
-     * @return new context menu
-     */
-    EditorTabContextMenu newContextMenu(EditorTab editorTab);
+public interface SplitEditorPartFactory {
+
+    SplitEditorPartView create(IsWidget specimen);
+    SplitEditorPartView create(IsWidget specimen, SplitEditorPartView parent);
 }

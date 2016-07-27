@@ -30,6 +30,13 @@ public enum PartStackType {
      * Usually placed in the CENTRAL part of the IDE.
      */
     EDITING,
+
+    /**
+     * Contains editing parts. Designed to provide an
+     * ability to edit any resources or settings.
+     * Usually placed in the CENTRAL part of the IDE.
+     */
+    MULTI_EDITING,
     /**
      * Contains tooling parts. Designed to provide handy
      * features and utilities, access to other services
