@@ -13,14 +13,12 @@ package org.eclipse.che.api.local;
 import com.google.inject.AbstractModule;
 
 import org.eclipse.che.api.local.storage.LocalStorageFactory;
-import org.eclipse.che.api.machine.server.spi.SnapshotDao;
 import org.eclipse.che.api.ssh.server.spi.SshDao;
 import org.eclipse.che.api.user.server.TokenValidator;
 
 public class LocalInfrastructureModule extends AbstractModule {
     @Override
     protected void configure() {
-        bind(SnapshotDao.class).to(LocalSnapshotDaoImpl.class);
         bind(SshDao.class).to(LocalSshDaoImpl.class);
         bind(TokenValidator.class).to(DummyTokenValidator.class);
         bind(LocalStorageFactory.class);
