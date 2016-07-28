@@ -15,14 +15,14 @@ REM Check to ensure bash is installed
 CALL bash --help > nul 2>&1
 IF %ERRORLEVEL% NEQ 0 goto setup
 
-REM Launch Che and any associated docker machines, if necessary
+REM Launch matching Bash script which contains commands
 CALL bash --login -i "%~dp0\che.sh" %*
 
 goto end
 
 :setup
 echo. 
-echo "REQUIRED: Git bash for Windows. It is typically stored c:\Program Files\Git\bin."
+echo "REQUIRED: Git Bash for Windows. Get it at https://git-for-windows.github.io/"
 echo.
 
 :end
