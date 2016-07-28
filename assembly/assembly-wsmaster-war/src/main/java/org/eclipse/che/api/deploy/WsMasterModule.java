@@ -11,18 +11,42 @@
 package org.eclipse.che.api.deploy;
 
 import com.google.inject.AbstractModule;
+import com.google.inject.Singleton;
 import com.google.inject.multibindings.Multibinder;
 import com.google.inject.name.Names;
+import com.google.inject.persist.jpa.JpaPersistModule;
 
+import org.eclipse.che.api.core.jdbc.jpa.guice.JpaInitializer;
+import org.eclipse.che.api.machine.server.jpa.JpaRecipeDao;
+import org.eclipse.che.api.machine.server.jpa.JpaSnapshotDao;
 import org.eclipse.che.api.machine.shared.Constants;
-import org.eclipse.che.api.user.server.ProfileService;
+import org.eclipse.che.api.user.server.CheUserCreator;
+import org.eclipse.che.api.user.server.jpa.JpaPreferenceDao;
+import org.eclipse.che.api.user.server.jpa.JpaProfileDao;
+import org.eclipse.che.api.user.server.jpa.JpaUserDao;
+import org.eclipse.che.api.workspace.server.jpa.JpaStackDao;
+import org.eclipse.che.api.workspace.server.jpa.JpaWorkspaceDao;
 import org.eclipse.che.inject.DynaModule;
+import org.eclipse.che.security.SHA512PasswordEncryptor;
 
 /** @author andrew00x */
 @DynaModule
 public class WsMasterModule extends AbstractModule {
     @Override
     protected void configure() {
+
+        install(new JpaPersistModule("main"));
+        bind(CheUserCreator.class);
+        bind(JpaInitializer.class).asEagerSingleton();
+        bind(org.eclipse.che.api.user.server.spi.UserDao.class).to(JpaUserDao.class);
+        bind(org.eclipse.che.api.user.server.spi.ProfileDao.class).to(JpaProfileDao.class);
+        bind(org.eclipse.che.api.user.server.spi.PreferenceDao.class).to(JpaPreferenceDao.class);
+        bind(org.eclipse.che.api.workspace.server.spi.WorkspaceDao.class).to(JpaWorkspaceDao.class);
+        bind(org.eclipse.che.api.workspace.server.spi.StackDao.class).to(JpaStackDao.class);
+        bind(org.eclipse.che.api.machine.server.spi.RecipeDao.class).to(JpaRecipeDao.class);
+        bind(org.eclipse.che.api.machine.server.spi.SnapshotDao.class).to(JpaSnapshotDao.class);
+        bind(org.eclipse.che.security.PasswordEncryptor.class).to(SHA512PasswordEncryptor.class).in(Singleton.class);
+
         bind(org.eclipse.che.api.core.rest.ApiInfoService.class);
         bind(org.eclipse.che.api.project.server.template.ProjectTemplateDescriptionLoader.class).asEagerSingleton();
         bind(org.eclipse.che.api.project.server.template.ProjectTemplateRegistry.class);

@@ -14,6 +14,7 @@ import org.eclipse.che.api.core.ConflictException;
 import org.eclipse.che.api.core.NotFoundException;
 import org.eclipse.che.api.core.ServerException;
 import org.eclipse.che.api.machine.server.spi.RecipeDao;
+import org.eclipse.che.api.user.server.CheUserCreator;
 import org.mockito.Mock;
 import org.mockito.testng.MockitoTestNGListener;
 import org.testng.annotations.Listeners;
@@ -38,11 +39,14 @@ public class RecipeLoaderTest {
     @Mock
     private RecipeDao recipeDao;
 
+    @Mock
+    private CheUserCreator userCreator;
+
     @Test
     public void shouldLoadPredefinedRecipesFromValidJson() throws Exception {
         URL url = Thread.currentThread().getContextClassLoader().getResource("recipes.json");
         if (url != null) {
-            recipeLoader = new RecipeLoader(Collections.singleton(url.getPath()), recipeDao);
+            recipeLoader = new RecipeLoader(Collections.singleton(url.getPath()), recipeDao, userCreator);
         }
 
         recipeLoader.start();
@@ -54,7 +58,7 @@ public class RecipeLoaderTest {
     public void shouldThrowExceptionWhenLoadPredefinedRecipesFromInvalidJson() throws Exception {
         URL url = Thread.currentThread().getContextClassLoader().getResource("invalid-recipes.json");
         if (url != null) {
-            recipeLoader = new RecipeLoader(Collections.singleton(url.getPath()), recipeDao);
+            recipeLoader = new RecipeLoader(Collections.singleton(url.getPath()), recipeDao, userCreator);
         }
 
         recipeLoader.start();
@@ -64,7 +68,7 @@ public class RecipeLoaderTest {
     public void shouldThrowExceptionWhenImpossibleToStoreRecipes() throws Exception {
         URL url = Thread.currentThread().getContextClassLoader().getResource("recipes.json");
         if (url != null) {
-            recipeLoader = new RecipeLoader(Collections.singleton(url.getPath()), recipeDao);
+            recipeLoader = new RecipeLoader(Collections.singleton(url.getPath()), recipeDao, userCreator);
         }
         doThrow(NotFoundException.class).when(recipeDao).update(any());
         doThrow(ConflictException.class).when(recipeDao).create(any());

@@ -46,6 +46,13 @@
               description="User database that can be updated and saved"
               factory="org.apache.catalina.users.MemoryUserDatabaseFactory"
               pathname="conf/tomcat-users.xml" /-->
+
+      <Resource name="jdbc_che" auth="Container"
+                type="javax.sql.DataSource"
+                driverClassName="org.h2.Driver"
+                url="jdbc:h2:mem:"
+                username="" password=""
+                maxActive="20" maxIdle="10" maxWait="-1"/>
   </GlobalNamingResources>
 
   <!-- A "Service" is a collection of one or more "Connectors" that share

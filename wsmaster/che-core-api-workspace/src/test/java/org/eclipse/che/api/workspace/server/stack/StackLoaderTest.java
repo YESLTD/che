@@ -23,6 +23,7 @@ import org.eclipse.che.api.machine.shared.dto.LimitsDto;
 import org.eclipse.che.api.machine.shared.dto.MachineConfigDto;
 import org.eclipse.che.api.machine.shared.dto.MachineSourceDto;
 import org.eclipse.che.api.machine.shared.dto.ServerConfDto;
+import org.eclipse.che.api.user.server.CheUserCreator;
 import org.eclipse.che.api.workspace.server.model.impl.stack.StackImpl;
 import org.eclipse.che.api.workspace.server.spi.StackDao;
 import org.eclipse.che.api.workspace.shared.dto.EnvironmentDto;
@@ -65,12 +66,15 @@ public class StackLoaderTest {
 
     private StackLoader stackLoader;
 
+    @Mock
+    private CheUserCreator userCreator;
+
     @Test
     public void predefinedStackWithValidJsonShouldBeUpdated() throws ServerException, NotFoundException, ConflictException {
         URL url = Resources.getResource("stacks.json");
         URL urlFolder = Thread.currentThread().getContextClassLoader().getResource("stack_img");
 
-        stackLoader = new StackLoader(url.getPath(), urlFolder.getPath(), stackDao);
+        stackLoader = new StackLoader(url.getPath(), urlFolder.getPath(), stackDao, userCreator);
 
         stackLoader.start();
         verify(stackDao, times(2)).update(any());
@@ -84,7 +88,7 @@ public class StackLoaderTest {
 
         doThrow(new NotFoundException("Stack is already exist")).when(stackDao).update(any());
 
-        stackLoader = new StackLoader(url.getPath(), urlFolder.getPath(), stackDao);
+        stackLoader = new StackLoader(url.getPath(), urlFolder.getPath(), stackDao, userCreator);
 
         stackLoader.start();
         verify(stackDao, times(2)).update(any());
@@ -98,7 +102,7 @@ public class StackLoaderTest {
 
         doThrow(new ServerException("Internal server error")).when(stackDao).update(any());
 
-        stackLoader = new StackLoader(url.getPath(), urlFolder.getPath(), stackDao);
+        stackLoader = new StackLoader(url.getPath(), urlFolder.getPath(), stackDao, userCreator);
 
         stackLoader.start();
         verify(stackDao, times(2)).update(any());

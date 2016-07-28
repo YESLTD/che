@@ -112,8 +112,8 @@ public class UserManagerTest {
     }
 
     @Test
-    public void shouldGenerateIdentifierWhenCreatingUser() throws Exception {
-        final User user = new UserImpl("identifier", "test@email.com", "testName", null, null);
+    public void shouldGenerateIdentifierWhenCreatingUserWithNullId() throws Exception {
+        final User user = new UserImpl(null, "test@email.com", "testName", null, null);
 
         manager.create(user, false);
 
